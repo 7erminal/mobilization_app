@@ -4,6 +4,11 @@ import 'package:mobilization_app/index.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Rotate the tracing session id (X-Session-Id) when the app returns from
+  // >= 30 minutes in the background (TracingConfig.sessionInactivityTimeout).
+  WidgetsBinding.instance.addObserver(authProvider.sessionLifecycleObserver);
+
   runApp(
     MultiProvider(
       providers: [

@@ -417,6 +417,11 @@ class ApiFetcher {
 
         localStorage.setItem('token', response['Result']['Token']['AccessToken']);
         localStorage.setItem('refreshToken', response['Result']['Token']['RefreshToken']);
+
+        // Mint the tracing session id (X-Session-Id) for this login session.
+        // Rotated on logout / 30-min inactivity by AuthProvider.
+        sessionService.startSession();
+
         authProvider.login();
 
         debugPrint("Login successful, token stored in local storage");

@@ -10,6 +10,10 @@ class ApisCaller {
         receiveTimeout: const Duration(seconds: 60), // 60 seconds
       ),
     );
+    // Adds X-Session-Id / X-Trace-Id / X-Request-Id to every request to a
+    // configured backend host, and structured request logs. Requests to
+    // third-party hosts are passed through untouched.
+    dio.interceptors.add(TracingInterceptor(sessionService: sessionService));
   }
 
   static final instance = ApisCaller._();
@@ -35,7 +39,10 @@ class ApisCaller {
     } catch (e) {
       print(e.toString());
       final errorMessage = Exceptions.errorMessage(e);
-      final failure = ServerFailure(message: errorMessage);
+      final failure = ServerFailure(
+        message: errorMessage,
+        requestId: Exceptions.extractRequestId(e),
+      );
       return builder(failure);
     }
   }
@@ -67,7 +74,10 @@ class ApisCaller {
       print("Error RECEIVED");
       print(e.toString());
       final errorMessage = Exceptions.errorMessage(e);
-      final failure = ServerFailure(message: errorMessage);
+      final failure = ServerFailure(
+        message: errorMessage,
+        requestId: Exceptions.extractRequestId(e),
+      );
       return builder(failure);
     }
   }
@@ -97,7 +107,10 @@ class ApisCaller {
     } catch (e) {
       // debugPrint(e.toString());
       final errorMessage = Exceptions.errorMessage(e);
-      final failure = ServerFailure(message: errorMessage);
+      final failure = ServerFailure(
+        message: errorMessage,
+        requestId: Exceptions.extractRequestId(e),
+      );
       return builder(failure);
     }
   }
@@ -122,7 +135,10 @@ class ApisCaller {
     } catch (e) {
       // debugPrint(e.toString());
       final errorMessage = Exceptions.errorMessage(e);
-      final failure = ServerFailure(message: errorMessage);
+      final failure = ServerFailure(
+        message: errorMessage,
+        requestId: Exceptions.extractRequestId(e),
+      );
       return builder(failure);
     }
   }
@@ -145,7 +161,10 @@ class ApisCaller {
     } catch (e) {
       // debugPrint(e.toString());
       final errorMessage = Exceptions.errorMessage(e);
-      final failure = ServerFailure(message: errorMessage);
+      final failure = ServerFailure(
+        message: errorMessage,
+        requestId: Exceptions.extractRequestId(e),
+      );
       return builder(failure);
     }
   }
