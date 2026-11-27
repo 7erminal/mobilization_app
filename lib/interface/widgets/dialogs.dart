@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mobilization_app/index.dart';
 
-void informationDialogWithButton(BuildContext context, String title, String description, Color? titleColor, Color? descriptionColor, String button1Text, Function navigator1_, bool? isDismisable) async
+void informationDialogWithButton(BuildContext context, String title, String description, Color? titleColor, Color? descriptionColor, String button1Text, Function navigator1_, bool? isDismisable, {String? requestId}) async
 {
   final mediaQueryData = MediaQuery.of(context);
 
@@ -41,11 +41,18 @@ void informationDialogWithButton(BuildContext context, String title, String desc
               fontSize: BrandValues.defaultLargeFontSize,
               textAlign: TextAlign.center,
             ),
-            content: CustomText(
-              text: description,
-              fontSize: BrandValues.defaultFontSize,
-              textAlign: TextAlign.center,
-              textColor: descriptionColor ?? BrandColors.black,
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomText(
+                  text: description,
+                  fontSize: BrandValues.defaultFontSize,
+                  textAlign: TextAlign.center,
+                  textColor: descriptionColor ?? BrandColors.black,
+                ),
+                // "Reference: <short id>" with tap-to-copy, for support.
+                ReferenceTag(requestId: requestId),
+              ],
             ),
             actions: [
               Padding(
@@ -72,7 +79,7 @@ void informationDialogWithButton(BuildContext context, String title, String desc
       ));
 }
 
-void informationDialogWithButtons(BuildContext context, String title, String description, Color? titleColor, Color? descriptionColor, String button1Text, String button2Text, Function navigator1_, Function navigator2_) async
+void informationDialogWithButtons(BuildContext context, String title, String description, Color? titleColor, Color? descriptionColor, String button1Text, String button2Text, Function navigator1_, Function navigator2_, {String? requestId}) async
 {
   final mediaQueryData = MediaQuery.of(context);
 
@@ -111,11 +118,18 @@ void informationDialogWithButtons(BuildContext context, String title, String des
               fontSize: BrandValues.defaultLargeFontSize,
               textAlign: TextAlign.center,
             ),
-            content: CustomText(
-              text: description,
-              fontSize: BrandValues.defaultSmallFontSize,
-              textAlign: TextAlign.center,
-              textColor: descriptionColor ?? BrandColors.black,
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomText(
+                  text: description,
+                  fontSize: BrandValues.defaultSmallFontSize,
+                  textAlign: TextAlign.center,
+                  textColor: descriptionColor ?? BrandColors.black,
+                ),
+                // "Reference: <short id>" with tap-to-copy, for support.
+                ReferenceTag(requestId: requestId),
+              ],
             ),
             actions: [
               Padding(

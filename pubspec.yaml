@@ -39,6 +39,8 @@ dependencies:
   localstorage: ^6.0.0
   connectivity_plus: ^6.1.5
   equatable: ^2.0.8
+  uuid: ^4.4.0
+  logger: ^2.5.0
   async: ^2.13.0
   quiver: ^3.2.2
   iconify_flutter: ^0.0.7
